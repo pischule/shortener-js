@@ -11,13 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 7
     - name: Setup Node.js environment
-      uses: actions/setup-node@v3.4.1
+      uses: actions/setup-node@v3
       with:
         node-version: 20
-        cache: pnpm
+        cache: 'pnpm'
     - name: Install dependencies
-      run: pnpm i
+      run: pnpm install
     - name: Build the app
       run: npm run build 
     - name: Build the Docker image
