@@ -36,7 +36,6 @@
 
   <ul>
     <li>Destination: <a href="{link.url}">{link.url}</a></li>
-    <li>Total clicks: {link.clicks}</li>
     <li>Created at {link.createdAt.toLocaleString()}</li>
   </ul>
 </article>

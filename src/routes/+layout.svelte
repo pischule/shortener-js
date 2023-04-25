@@ -1,3 +1,7 @@
+<script>
+  import "@picocss/pico/css/pico.min.css";
+</script>
+
 <nav class="container-fluid">
   <ul>
     <li><a href="/"><img class="logo" src="/cat.svg" alt="cat logo"></a></li>
