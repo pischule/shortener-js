@@ -24,4 +24,6 @@ jobs:
     - name: Build the app
       run: npm run build 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag shortener-js:$(date +%s)
+      run: docker build . --tag ghcr.io/pischule/shortener-js:latest
+    - name: Push the Docker image
+      run: docker push ghcr.io/pischule/shortener-js:latest
