@@ -28,11 +28,18 @@ jobs:
     - name: Install dependencies
       run: pnpm install
     - name: Build the app
-      run: npm run build 
+      run: npm run build
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v4.4.0
+      with:
+        images: |
+          pischule/shortener-js
+          ghcr.io/${{ github.repository }}
     - name: Build and push Docker images
       uses: docker/build-push-action@v4.0.0
       with:
         context: .
         push: true
-        tags: latest
-        labels: ghcr.io/pischule/shortener-js
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
