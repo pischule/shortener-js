@@ -11,26 +11,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache: 'pnpm'
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 7
+    - name: Install dependencies
+      run: pnpm install
+    - name: Generate prisma client
+      run: prisma generate
+    - name: Build the app
+      run: npm run build
+
     - name: Docker Login
       uses: docker/login-action@v2.1.0
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 7
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
-        cache: 'pnpm'
-    - name: Install dependencies
-      run: pnpm install
-    - name: Generate prisma client
-      run: npx prisma generate
-    - name: Build the app
-      run: npm run build
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v4
