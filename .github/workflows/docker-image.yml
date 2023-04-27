@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: pnpm install
     - name: Generate prisma client
-      run: npm run buildPrisma
+      run: pnpx prisma generate
     - name: Build the app
       run: npm run build
 
