@@ -22,10 +22,9 @@ jobs:
     - name: Install dependencies
       run: pnpm install
     - name: Generate prisma client
-      run: pnpx prisma generate
+      run: prisma generate
     - name: Build the app
       run: npm run build
-
     - name: Docker Login
       uses: docker/login-action@v2.1.0
       with:
