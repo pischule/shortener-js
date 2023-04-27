@@ -16,11 +16,12 @@ jobs:
       with:
         node-version: 20
         cache: 'pnpm'
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 7
+    - name: Enable corepack
+      run: corepack enable
+    - name: Install pnpm
+      run: corepack prepare pnpm@latest --activate
     - name: Install dependencies
-      run: pnpm install
+      run: pnpm i
     - name: Generate prisma client
       run: prisma generate
     - name: Build the app
