@@ -1,13 +1,10 @@
-// @ts-ignore
-import * as db from "$lib/server/database";
+import * as linkService from "$lib/server/linkService";
 import { error, redirect } from "@sveltejs/kit";
 
-// @ts-ignore
-
 /** @type {import("./$types").RequestHandler} */
-export function GET({ params }) {
+export async function GET({ params }) {
   const { id } = params;
-  const link = db.findLink(id);
+  const link = await linkService.findIncrementingVisits(id);
   if (!link) {
     throw error(404, "Not found");
   }
