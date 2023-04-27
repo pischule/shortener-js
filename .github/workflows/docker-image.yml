@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       run: pnpm install
     - name: Generate prisma client
-      run: pnpm exec prisma generate
+      run: npx prisma generate
     - name: Build the app
       run: npm run build
     - name: Docker meta
