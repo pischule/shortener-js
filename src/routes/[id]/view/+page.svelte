@@ -6,10 +6,13 @@
 
   let copied = false;
 
+  let timeout = null;
+
   const copyToClipboard = async () => {
     await navigator.clipboard.writeText(fullUrl);
     copied = true;
-    setTimeout(() => (copied = false), 3000);
+    clearInterval(timeout);
+    timeout = setTimeout(() => (copied = false), 3000);
   };
 </script>
 
