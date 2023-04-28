@@ -1,8 +1,8 @@
 import * as linkService from "$lib/server/linkService";
 import { error, redirect } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
-/** @type {import("./$types").RequestHandler} */
-export async function GET({ params }) {
+export const GET = (async ({ params }) => {
   const { id } = params;
   const link = await linkService.findIncrementingVisits(id);
   if (!link) {
@@ -10,4 +10,4 @@ export async function GET({ params }) {
   }
 
   throw redirect(303, link.url);
-}
+}) satisfies RequestHandler;

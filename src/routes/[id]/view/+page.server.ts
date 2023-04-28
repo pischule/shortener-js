@@ -1,8 +1,9 @@
 import * as linkService from "$lib/server/linkService";
 import { error } from "@sveltejs/kit";
 
-/** @type {import("./$types").PageServerLoad} */
-export async function load({ params }) {
+import type { PageServerLoad } from "./$types";
+
+export const load = (async ({ params }) => {
   const { id } = params;
   const link = await linkService.findLink(id);
   if (!link) {
@@ -11,4 +12,4 @@ export async function load({ params }) {
   return {
     link
   };
-}
+}) satisfies PageServerLoad;
