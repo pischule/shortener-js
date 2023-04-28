@@ -7,5 +7,6 @@ const { AUTH_SECRET, GITHUB_ID, GITHUB_SECRET } = env;
 
 export const handle = SvelteKitAuth({
   providers: [GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET })],
-  secret: AUTH_SECRET
+  secret: AUTH_SECRET,
+  trustHost: true
 }) satisfies Handle;
