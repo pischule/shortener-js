@@ -13,5 +13,19 @@ export const handle = SvelteKitAuth({
   theme: {
     brandColor: "hsl(195, 85%, 41%)",
     logo: logo
+  },
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.provider = account.provider;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token.sub && token.provider) {
+        session.user.id = `${token.provider}-${token.sub}`;
+      }
+      return Promise.resolve(session);
+    }
   }
 }) satisfies Handle;

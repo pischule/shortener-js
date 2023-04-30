@@ -17,9 +17,8 @@ export const actions: Actions = {
     }
 
     const session = await locals.getSession();
-    const email = session?.user?.email ?? null;
-
-    const link = await linkService.saveLink(url, email);
+    const id = session?.user?.id;
+    const link = await linkService.saveLink(url, id);
     throw redirect(303, `${link.id}/view`);
   }
 };

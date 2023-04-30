@@ -6,8 +6,8 @@ import { page } from "$app/stores";
 
 export const load = (async (event) => {
   const session = await event.locals.getSession();
-  const email = session?.user?.email;
-  if (!email) throw redirect(303, "/");
+  const id = session?.user?.id;
+  if (!id) throw redirect(303, "/");
 
   const currentPage = parseInt(event.url.searchParams.get("page") ?? "0");
   if (isNaN(currentPage) || currentPage < 0) {
@@ -17,7 +17,7 @@ export const load = (async (event) => {
 
   const links = await prisma.link.findMany({
     where: {
-      creator: email
+      creator: id
     },
     skip: pageSize * currentPage,
     take: pageSize
@@ -25,7 +25,7 @@ export const load = (async (event) => {
 
   const totalCount = await prisma.link.count({
     where: {
-      creator: email
+      creator: id
     }
   });
 

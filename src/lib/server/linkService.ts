@@ -16,12 +16,12 @@ export const findLink = async (id: string) => {
   });
 };
 
-export const saveLink = async (url: string, email: string | null) => {
+export const saveLink = async (url: string, id: string | undefined) => {
   return await prisma.link.create({
     data: {
       id: generateId(),
       url: url,
-      creator: email
+      creator: id
     }
   });
 };
