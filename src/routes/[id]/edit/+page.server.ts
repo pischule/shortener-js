@@ -4,11 +4,19 @@ import type { Actions, PageServerLoad } from "./$types";
 import { isUrlValid } from "$lib/util";
 import prisma from "$lib/server/prisma";
 
-export const load = (async ({ params }) => {
-  const { id } = params;
-  const link = await linkService.findLink(id);
+export const load = (async ({ params , locals}) => {
+  const session = await locals.getSession();
+  const userId = session?.user?.id;
+  if (!userId) {
+    throw error(401, 'Unauthorized');
+  }
+  const linkId = params.id;
+  const link = await linkService.findLink(linkId);
   if (!link) {
     throw error(404, "Not found");
+  }
+  if (link.creator !== userId) {
+    throw error(403, 'You dont own this link');
   }
   return {
     link

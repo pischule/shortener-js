@@ -25,7 +25,9 @@
   <input type="url" readonly name="url" value={fullUrl} aria-label="short url" />
   <div class="grid">
     <button on:click={copyToClipboard} class="secondary">{copied ? 'Copied' : 'Copy'}</button>
-    <button on:click={() => goto('edit')}>Edit</button>
+    {#if data.isOwner}
+      <button on:click={() => goto('edit')}>Edit</button>
+    {/if}
   </div>
 
   <ul>
