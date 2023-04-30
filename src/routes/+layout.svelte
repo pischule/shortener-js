@@ -1,24 +1,24 @@
 <script>
   import "@picocss/pico/css/pico.min.css";
-  import { signIn, signOut } from "@auth/sveltekit/client";
   import { page } from "$app/stores";
+
+  import logo from "$lib/assets/logo.svg";
 </script>
 
 <nav class="container-fluid">
   <ul>
-    <li><a href="/"><img class="logo" src="/cat.svg" alt="cat logo"></a></li>
+    <li><a href="/"><img class="logo" src={logo} alt="cat logo"></a></li>
   </ul>
   <ul>
     {#if $page.data.session}
       <li><a href="/my-links">My Links</a></li>
       <li>
-        <button class="outline" data-placement="left" data-tooltip={`Signed in as ${$page.data.session.user?.name ?? "User"}`}
-                on:click={() => signOut()}>Sign out
-        </button>
+        <a class="outline" role="button" href="/auth/signout" data-placement="left"
+           data-tooltip={`Signed in as ${$page.data.session.user?.name ?? "User"}`}>Sign Out</a>
       </li>
     {:else}
       <li>
-        <button class="outline" on:click={() => signIn("github")}>Sign In with GitHub</button>
+        <a class="outline" role="button" href="/auth/signin">Sign In</a>
       </li>
     {/if}
   </ul>
