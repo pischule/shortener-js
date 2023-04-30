@@ -1,11 +1,11 @@
 <script>
   export let data;
+
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
 
   let fullUrl = `${$page.url.origin}/${data.link.id}`;
-
   let copied = false;
-
   let timeout = null;
 
   const copyToClipboard = async () => {
@@ -25,6 +25,7 @@
   <input type="url" readonly name="url" value={fullUrl} aria-label="short url" />
   <div class="grid">
     <button on:click={copyToClipboard} class="secondary">{copied ? 'Copied' : 'Copy'}</button>
+    <button on:click={() => goto('edit')}>Edit</button>
   </div>
 
   <ul>
