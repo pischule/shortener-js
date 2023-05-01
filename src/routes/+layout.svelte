@@ -14,11 +14,11 @@
       <li><a href="/my-links">My Links</a></li>
       <li>
         <a class="outline" role="button" href="/auth/signout" data-placement="left"
-           data-tooltip={`Signed in as ${$page.data.session.user?.name ?? "User"}`}>Sign Out</a>
+           data-tooltip={`Signed in as ${$page.data.session.user?.name ?? "User"}`}>Sign out</a>
       </li>
     {:else}
       <li>
-        <a class="outline" role="button" href="/auth/signin">Sign In</a>
+        <a class="outline" role="button" href="/auth/signin">Sign in</a>
       </li>
     {/if}
   </ul>
