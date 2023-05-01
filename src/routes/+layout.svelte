@@ -19,6 +19,6 @@
   </div>
 </nav>
 
-<div class="container mx-auto">
+<div class="container mx-auto px-2">
   <slot />
 </div>
