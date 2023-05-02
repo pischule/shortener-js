@@ -1,6 +1,6 @@
 interface Link {
-  id: string,
-  url: string,
-  createdAt: Date,
-  clicks: number
+	id: string,
+	url: string,
+	createdAt: Date,
+	clicks: number
 }

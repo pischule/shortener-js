@@ -1,8 +1,10 @@
-<script>
+<script lang='ts'>
 	import { enhance } from '$app/forms';
 	import { isUrlValid } from '$lib/util';
 
 	let url = '';
+
+	$: ariaInvalid = !url || isUrlValid(url) ? null : 'true';
 </script>
 
 <hgroup>
@@ -10,16 +12,16 @@
 	<h2>Simple URL Shortener</h2>
 </hgroup>
 
-<form method="post" use:enhance>
+<form method='post' use:enhance>
 	<input
 		bind:value={url}
-		type="url"
+		type='url'
 		required
-		name="url"
-		autocomplete="off"
-		placeholder="https://example.com"
-		aria-label="url"
-		aria-invalid={!url || isUrlValid(url) ? null : true}
+		name='url'
+		autocomplete='off'
+		placeholder='https://example.com'
+		aria-label='url'
+		aria-invalid={ariaInvalid}
 	/>
-	<button type="submit">Short</button>
+	<button type='submit'>Short</button>
 </form>
