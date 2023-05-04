@@ -1,10 +1,8 @@
 <script lang='ts'>
+	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
-	import { isUrlValid } from '$lib/util';
 
-	let url = '';
-
-	$: ariaInvalid = !url || isUrlValid(url) ? null : 'true';
+	export let form: ActionData;
 </script>
 
 <hgroup>
@@ -14,14 +12,14 @@
 
 <form method='post' use:enhance>
 	<input
-		bind:value={url}
+		value={form?.url ?? ''}
 		type='url'
 		required
 		name='url'
 		autocomplete='off'
 		placeholder='https://example.com'
 		aria-label='url'
-		aria-invalid={ariaInvalid}
+		aria-invalid={form?.invalid}
 	/>
 	<button type='submit'>Short</button>
 </form>

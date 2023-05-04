@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types';
 import * as linkService from '$lib/server/linkService';
-import { error, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { isUrlValid } from '$lib/util';
 import prisma from '$lib/server/prisma';
 
@@ -19,7 +19,8 @@ export const load = (async ({ params, locals }) => {
 		throw error(403, 'You dont own this link');
 	}
 	return {
-		link
+		url: link.url,
+		id: link.id
 	};
 }) satisfies PageServerLoad;
 
@@ -49,13 +50,9 @@ export const actions = ({
 		}
 
 		const data = await request.formData();
-		if (!data) {
-			throw error(400, 'Empty request body');
-		}
-
 		const url = data.get('url');
 		if (typeof url !== 'string' || !isUrlValid(url)) {
-			throw error(400, 'Invalid url');
+			return fail(400, { url, invalid: true });
 		}
 
 		await prisma.link.updateMany({

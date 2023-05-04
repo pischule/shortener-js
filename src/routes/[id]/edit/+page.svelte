@@ -1,50 +1,38 @@
 <script lang='ts'>
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
-	import { isUrlValid } from '$lib/util';
 
 	export let data: PageData;
-
-	let url = data.link.url;
-	let fullUrl = `${$page.url.origin}/${data.link.id}`;
-
-	$: ariaInvalid = !url || isUrlValid(url) ? null : 'true';
+	export let form: ActionData;
 </script>
 
 <hgroup>
 	<h2>Edit URL</h2>
-	<h3>{data.link.id}</h3>
+	<h3>{data.id}</h3>
 </hgroup>
 
 <article>
-	<form id='form-update' method='post' action='?/update' use:enhance></form>
-	<form id='form-delete' method='post' action='?/delete' use:enhance></form>
+	<form method='POST' use:enhance>
+		<label>
+			Destination
+			<input
+				type='url'
+				name='url'
+				value={data.url ?? (form?.url ?? '')}
+				required='required'
+				autocomplete='off'
+				aria-label='url'
+				aria-invalid={form?.invalid}
+			>
+		</label>
 
-	<label>
-		Short url:
-		<input type='url' readonly name='url' value={fullUrl} aria-label='short url' />
-	</label>
-
-	<label>
-		Destination
-		<input bind:value={url}
-					 type='url'
-					 required='required'
-					 name='url'
-					 autocomplete='off'
-					 form='form-update'
-					 aria-label='url'
-					 aria-invalid={ariaInvalid}
-		>
-	</label>
-
-	<div class='grid'>
-		<button on:click={() => goto('view')} class='secondary'>Cancel</button>
-		<button type='submit' form='form-update'>Save</button>
-		<button class='red' type='submit' form='form-delete'>Delete</button>
-	</div>
+		<div class='grid'>
+			<button on:click|preventDefault={() => goto('view')} class='secondary'>Cancel</button>
+			<button formaction='?/update' type='submit'>Save</button>
+			<button formaction='?/delete' class='red' type='submit'>Delete</button>
+		</div>
+	</form>
 </article>
 
 <style>
