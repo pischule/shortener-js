@@ -4,6 +4,10 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<title>My Links</title>
+</svelte:head>
+
 <h1>My Links</h1>
 
 <figure>

@@ -7,6 +7,10 @@
 	export let form: ActionData;
 </script>
 
+<svelte:head>
+	<title>{data.id}</title>
+</svelte:head>
+
 <hgroup>
 	<h2>Edit URL</h2>
 	<h3>{data.id}</h3>

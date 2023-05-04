@@ -17,6 +17,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>{data.link?.id}</title>
+</svelte:head>
+
 <hgroup>
 	<h2>Shortened URL</h2>
 	<h3>{data.link.id}</h3>

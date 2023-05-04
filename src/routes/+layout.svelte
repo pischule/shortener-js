@@ -5,6 +5,10 @@
 	import logo from '$lib/assets/logo.svg';
 </script>
 
+<svelte:head>
+	<title>shorturrl</title>
+</svelte:head>
+
 <nav class='container-fluid'>
 	<ul>
 		<li><a href='/'><img class='logo' src={logo} alt='cat logo'></a></li>
