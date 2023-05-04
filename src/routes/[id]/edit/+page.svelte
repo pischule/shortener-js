@@ -1,6 +1,5 @@
 <script lang='ts'>
 	import type { ActionData, PageData } from './$types';
-	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 
 	export let data: PageData;
@@ -32,7 +31,7 @@
 		</label>
 
 		<div class='grid'>
-			<button on:click|preventDefault={() => goto('view')} class='secondary'>Cancel</button>
+			<a href='view' role='button' class='secondary'>Cancel</a>
 			<button formaction='?/update' type='submit'>Save</button>
 			<button formaction='?/delete' class='red' type='submit'>Delete</button>
 		</div>
@@ -40,6 +39,11 @@
 </article>
 
 <style>
+    a[role='button'] {
+        width: 100%;
+        margin-bottom: 20px
+    }
+
     .red {
         --primary: #e53935;
         --primary-hover: #d32f2f;

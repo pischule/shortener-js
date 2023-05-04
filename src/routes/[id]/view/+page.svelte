@@ -1,11 +1,11 @@
 <script lang='ts'>
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { onDestroy } from 'svelte';
 
 	export let data: PageData;
 
-	let fullUrl = `${$page.url.origin}/${data.link.id}`;
+	let fullUrl = `${$page.url.origin}/${data?.link.id}`;
 	let copied = false;
 	let timeout = null;
 
@@ -13,8 +13,10 @@
 		await navigator.clipboard.writeText(fullUrl);
 		copied = true;
 		clearInterval(timeout);
-		timeout = setTimeout(() => (copied = false), 3000);
+		timeout = setTimeout(() => (copied = false), 2000);
 	};
+
+	onDestroy(() => clearTimeout(timeout));
 </script>
 
 <svelte:head>
@@ -31,7 +33,7 @@
 	<div class='grid'>
 		<button on:click={copyToClipboard} class='secondary'>{copied ? 'Copied' : 'Copy'}</button>
 		{#if data.isOwner}
-			<button on:click={() => goto('edit')}>Edit</button>
+			<a href='edit' role='button'>Edit</a>
 		{/if}
 	</div>
 
@@ -43,3 +45,10 @@
 </article>
 
 <p><a href='/'>Create another</a></p>
+
+<style>
+    a[role='button'] {
+        width: 100%;
+        margin-bottom: 20px
+    }
+</style>
