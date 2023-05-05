@@ -2,6 +2,10 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
+	$: totalPages = Math.ceil(data.totalCount / data.pageSize);
+	$: fromIndex = data.currentPage * data.pageSize;
+	$: toIndex = fromIndex + data.links.length;
 </script>
 
 <svelte:head>
@@ -31,18 +35,18 @@
 		</tbody>
 	</table>
 
-	{#if data.totalPages > 1}
+	{#if totalPages > 1}
 		<div class='grid'>
 			<div class='prev'>
 				{#if data.currentPage > 0}
-					<a href='?page={data.currentPage - 1}'>Prev</a>
+					<a href='?page={data.currentPage - 1}'>Previous</a>
 				{/if}
 			</div>
 			<div class='page-count'>
-				Page {data.currentPage + 1} of {data.totalPages}
+				{fromIndex + 1}-{toIndex} / {data.totalCount}
 			</div>
 			<div class='next'>
-				{#if data.currentPage + 1 < data.totalPages}
+				{#if data.currentPage + 1 < totalPages}
 					<a href='?page={data.currentPage + 1}'>Next</a>
 				{/if}
 			</div>

@@ -29,7 +29,5 @@ export const load = (async (event) => {
 		}
 	});
 
-	const totalPages = Math.ceil(totalCount / pageSize);
-
-	return { currentPage, links, totalPages };
+	return { currentPage, links, totalCount, pageSize };
 }) satisfies PageServerLoad;
