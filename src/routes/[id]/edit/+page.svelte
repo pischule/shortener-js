@@ -15,28 +15,26 @@
 	<h3>{data.id}</h3>
 </hgroup>
 
-<article>
-	<form method='POST' use:enhance>
-		<label>
-			Destination
-			<input
-				type='url'
-				name='url'
-				value={data.url ?? (form?.url ?? '')}
-				required='required'
-				autocomplete='off'
-				aria-label='url'
-				aria-invalid={form?.invalid}
-			>
-		</label>
+<form method='POST' use:enhance>
+	<label>
+		Destination
+		<input
+			type='url'
+			name='url'
+			value={data.url ?? (form?.url ?? '')}
+			required='required'
+			autocomplete='off'
+			aria-label='url'
+			aria-invalid={form?.invalid}
+		>
+	</label>
 
-		<div class='grid'>
-			<a href='view' role='button' class='secondary'>Cancel</a>
-			<button formaction='?/update' type='submit'>Save</button>
-			<button formaction='?/delete' class='red' type='submit'>Delete</button>
-		</div>
-	</form>
-</article>
+	<div class='grid'>
+		<a href='view' role='button' class='secondary'>Cancel</a>
+		<button formaction='?/update' type='submit'>Save</button>
+		<button formaction='?/delete' class='red' type='submit'>Delete</button>
+	</div>
+</form>
 
 <style>
     a[role='button'] {

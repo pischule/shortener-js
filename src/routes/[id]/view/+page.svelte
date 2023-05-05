@@ -28,21 +28,19 @@
 	<h3>{data.link.id}</h3>
 </hgroup>
 
-<article>
-	<input type='url' readonly name='url' value={fullUrl} aria-label='short url' />
-	<div class='grid'>
-		<button on:click={copyToClipboard} class='secondary'>{copied ? 'Copied' : 'Copy'}</button>
-		{#if data.isOwner}
-			<a href='edit' role='button'>Edit</a>
-		{/if}
-	</div>
+<input type='url' readonly name='url' value={fullUrl} aria-label='short url' />
+<div class='grid'>
+	<button on:click={copyToClipboard} class='secondary'>{copied ? 'Copied' : 'Copy'}</button>
+	{#if data.isOwner}
+		<a href='edit' role='button'>Edit</a>
+	{/if}
+</div>
 
-	<ul>
-		<li>Destination: <a href={data.link.url}>{data.link.url}</a></li>
-		<li>Created at {data.link.createdAt.toLocaleString()}</li>
-		<li>Visits: {data.link.visits}</li>
-	</ul>
-</article>
+<ul>
+	<li>Destination: <a href={data.link.url}>{data.link.url}</a></li>
+	<li>Created at {data.link.createdAt.toLocaleString()}</li>
+	<li>Visits: {data.link.visits}</li>
+</ul>
 
 <p><a href='/'>Create another</a></p>
 
